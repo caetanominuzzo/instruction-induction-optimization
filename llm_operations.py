@@ -19,7 +19,7 @@ def num_tokens_from_string(string: str, encoding_name: str = "cl100k_base") -> i
     return num_tokens
 
 
-def extract_instructions(dataset: List[Dict[str, int]]) -> str:
+def extract_instructions(dataset: List[Dict[str, str]]) -> Tuple[str, Dict[str, int]]:
     # Function to extract instructions from ChatGPT using the dataset
     prompt = f"{instruction_extraction_prompt} {dataset}"
     model = "text-davinci-002"
@@ -39,10 +39,21 @@ def extract_instructions(dataset: List[Dict[str, int]]) -> str:
         dataset,
         response.choices[0].text.strip().replace("\n", " ")
     )
-    return response.choices[0].text.strip().replace("\n", " ")
+
+    token_usage = {
+        "prompt_tokens": response["usage"]["prompt_tokens"],
+        "completion_tokens": response["usage"]["completion_tokens"],
+    }
+
+    return (
+        response.choices[0].text.strip().replace("\n", ""),
+        token_usage,
+    )
 
 
-def compare_instructions(instructions_1: str, instructions_2: str) -> bool:
+def compare_instructions(
+    instructions_1: str, instructions_2: str
+) -> Tuple[bool, Dict[str, int]]:
     # Function to compare two sets of instructions using ChatGPT
     prompt = f"{instruction_comparison_prompt}\n\t{instructions_1}\n\t{instructions_2}"
     model = "text-davinci-002"
@@ -60,7 +71,13 @@ def compare_instructions(instructions_1: str, instructions_2: str) -> bool:
         instructions_1,
         instructions_2,
         response.choices[0].text.strip().replace("\n", " "))
-    return "Yes" in response.choices[0].text.strip()
+
+    token_usage = {
+        "prompt_tokens": response["usage"]["prompt_tokens"],
+        "completion_tokens": response["usage"]["completion_tokens"],
+    }
+
+    return "Yes" in response.choices[0].text.strip(), token_usage
 
 
 def generate_combinations(dataset: List[Dict[str, int]], num_elements: int) -> List[List[Dict[str, int]]]:

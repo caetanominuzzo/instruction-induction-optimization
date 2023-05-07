@@ -2,7 +2,21 @@ import sys
 import json
 import logging
 import itertools
-from utils import num_tokens_from_string, extract_instructions, compare_instructions, generate_combinations, rank_combinations, instruction_extraction_prompt, instruction_comparison_prompt
+from llm_operations import (
+    num_tokens_from_string,
+    extract_instructions,
+    compare_instructions,
+    generate_combinations,
+    rank_combinations,
+    instruction_extraction_prompt,
+    instruction_comparison_prompt,
+)
+
+
+token_usage = {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+}
 
 
 def load_dataset_from_file(file_path: str):
@@ -62,7 +76,10 @@ def main():
         sys.exit()
 
     # Extract initial instructions
-    initial_instructions = extract_instructions(original_dataset)
+    initial_instructions, instruction_token_usage = extract_instructions(
+        original_dataset)
+    token_usage["prompt_tokens"] += instruction_token_usage["prompt_tokens"]
+    token_usage["completion_tokens"] += instruction_token_usage["completion_tokens"]
 
     # Initialize variables
     iteration_number = 1
@@ -85,10 +102,19 @@ def main():
 
         # Evaluate each combination
         for combination in combinations:
-            new_instructions = extract_instructions(combination)
+            new_instructions, comparison_token_usage = extract_instructions(
+                combination)
+            token_usage["prompt_tokens"] += comparison_token_usage["prompt_tokens"]
+            token_usage["completion_tokens"] += comparison_token_usage["completion_tokens"]
 
             # Compare instructions
-            if compare_instructions(initial_instructions, new_instructions):
+            are_instructions_equivalent, comparison_token_usage = compare_instructions(
+                initial_instructions, new_instructions
+            )
+            token_usage["prompt_tokens"] += comparison_token_usage["prompt_tokens"]
+            token_usage["completion_tokens"] += comparison_token_usage["completion_tokens"]
+
+            if are_instructions_equivalent:
                 equivalent_combinations.append(combination)
 
                 # Update the score for each participating data point
@@ -121,6 +147,13 @@ def main():
         print(f"Combination {i+1}: {combination}")
         print(f"Metrics: {ranked_combination_metrics[i]}")
         print(f"Weighted sum: {ranked_combination_weighted_sums[i]}\n")
+
+    # Print the token usage report
+    print("Token usage report:")
+    print(f"Prompt tokens: {token_usage['prompt_tokens']}")
+    print(f"Completion tokens: {token_usage['completion_tokens']}")
+    print(
+        f"Total tokens: {token_usage['prompt_tokens'] + token_usage['completion_tokens']}")
 
 
 if __name__ == "__main__":
