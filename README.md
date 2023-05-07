@@ -17,7 +17,7 @@ This repository contains a Python implementation of a brute force method to opti
 
 ## <a  id="introduction"></a>Introduction
 
-The primary goal of this project is to find the most robust yet minimal dataset that still maintains the original instruction induction. This is useful for developers who want to leverage ChatGPT to create applications with minimal training data and costs.
+The primary goal of this project is to find the smallest dataset that still preserves the original instruction induction quality. This is useful for developers who want to leverage ChatGPT to create applications with minimal training data and costs.
 
 This approach was initially developed as part of the Small Texts Editor, a commercial product focused on providing context-aware personalization and human-centered solutions for AI-driven text editing. For more information on the Small Texts Editor, please visit the official website at labdqnt.com.
 
@@ -25,12 +25,12 @@ This approach was initially developed as part of the Small Texts Editor, a comme
 
 > Please note that using this method with large datasets might consume a significant amount of tokens when interacting with the ChatGPT API. Therefore, it is essential to use it cautiously and consider the associated costs when processing extensive data.
 
-The method performs the following steps:
+The method involves these steps:
 
 1. Extract initial instructions from the original dataset using ChatGPT.
 2. Iterate through data points, generating different combinations of the remaining data points, and evaluate them using a brute-force approach.
-3. Compare the instructions generated from these subsets to the original instructions to determine the importance of each data point in maintaining the original instructions.
-4. Calculate dependency and redundancy to find the best combination among equally minimal datasets.
+3. Compare the generated instructions from subsets with the original instructions to determine each data point's importance in preserving the original instructions.
+4. Assess dependency and redundancy to identify the optimal combination among equally small datasets.
 
 We utilized two base prompts to interact with ChatGPT:
 
@@ -74,7 +74,7 @@ export  OPENAI_API_KEY='your_api_key_here'
 
 ## <a  id="usage"></a>Usage
 
-Your dataset JSON file should follow this format:
+Ensure your dataset JSON file has this format:
 
 ```json
 [
@@ -97,9 +97,9 @@ Your dataset JSON file should follow this format:
 ]
 ```
 
-This example JSON format is taken from the included dataset-example-fibonacci-sequence.json file.
+This example JSON format is taken from the included `dataset-example-fibonacci-sequence.json` file.
 See the `dataset-example-*.json` files for more examples.
-Run the main script with the dataset file path as a command-line argument:
+Execute the main script using the dataset file path as a command-line argument:
 
 ```bash
 python main.py  /path/to/your/dataset.json
@@ -109,11 +109,11 @@ Alternatively, you can run the main script without any arguments, and it will pr
 
 ## <a  id="contributing"></a>Contributing
 
-If you would like to contribute to this project, feel free to submit a pull request or open an issue with your suggestions and bug reports.
+To contribute to this project, submit a pull request or open an issue with your suggestions and bug reports.
 
 ## <a  id="included-datasets"></a>Included Datasets
 
-This repository includes three example datasets:
+The repository contains three example datasets:
 
 1. `dataset-example-multiply-by-two.json` - A dataset containing input/output pairs for multiplying by two.
 2. `dataset-example-fibonacci-sequence.json` - A dataset containing input/output pairs for the Fibonacci sequence.
@@ -123,7 +123,7 @@ Feel free to use these datasets for testing purposes or as a reference for creat
 
 ## <a  id="usage-in-the-small-texts-editor"></a>Usage in the Small Texts Editor
 
-This method has been successfully integrated into the Small Texts Editor, a state-of-the-art AI-driven text editor that focuses on generating short, contextually relevant text suggestions. The Small Texts Editor uses it to optimize the dataset for instruction induction, allowing it to provide highly personalized suggestions while maintaining a budget-friendly approach.
+This method has been successfully integrated into the Small Texts Editor, a state-of-the-art AI-driven text editor that focuses on generating short, contextually relevant text suggestions. The Small Texts Editor uses this method to optimize datasets for instruction induction, enabling personalized suggestions while keeping costs low.
 By leveraging this approach, the Small Texts Editor can deliver high-quality results for various use cases, including:
 
 - Writing precise storytelling prompts for AI image generators, including Stable Diffusion and Midjourney,
@@ -136,8 +136,8 @@ This repository provides the underlying optimization method that powers the Smal
 
 ## <a  id="disclaimer"></a>Disclaimer
 
-ChatGPT is a product of OpenAI Inc., Midjourney is a product of Midjourney Inc., and Stable Diffusion is a product of StabilityAI. This project is independently developed and is not directly associated with or endorsed by OpenAI, Midjourney, or StabilityAI.
+ChatGPT is developed by OpenAI Inc., Midjourney by Midjourney Inc., and Stable Diffusion by StabilityAI. This project is independently created and not directly affiliated with or endorsed by OpenAI, Midjourney, or StabilityAI.
 
-    ## <a  id="license"></a>License
+## <a  id="license"></a>License
 
 This project is licensed under the GNU Lesser General Public License v3 (LGPL-3). See the [LICENSE](LICENSE) file for details.
