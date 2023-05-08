@@ -8,9 +8,15 @@ from llm_operations import (
     compare_instructions,
     generate_combinations,
     rank_combinations,
-    instruction_extraction_prompt,
-    instruction_comparison_prompt,
 )
+
+# Custom parameters
+MODEL = "text-davinci-002"
+MAX_TOKENS = 150
+TEMPERATURE = 0.0
+PENALTY = 0.0
+INSTRUCTION_EXTRACTION_PROMPT = "Given the following input/output pairs, determine the transformation rule that turns the input into the output. Provide the result in plain text and be concise: "
+INSTRUCTION_COMPARISON_PROMPT = "Compare these two sets of instructions and indicate if both determine the same transformation. Provide the result as 'Yes' or 'No', without any additional explanation: "
 
 
 token_usage = {
@@ -77,7 +83,7 @@ def main():
 
     # Extract initial instructions
     initial_instructions, instruction_token_usage = extract_instructions(
-        original_dataset)
+        original_dataset, MODEL, MAX_TOKENS, TEMPERATURE, PENALTY, INSTRUCTION_EXTRACTION_PROMPT)
     token_usage["prompt_tokens"] += instruction_token_usage["prompt_tokens"]
     token_usage["completion_tokens"] += instruction_token_usage["completion_tokens"]
 
@@ -103,13 +109,13 @@ def main():
         # Evaluate each combination
         for combination in combinations:
             new_instructions, comparison_token_usage = extract_instructions(
-                combination)
+                combination, MODEL, MAX_TOKENS, TEMPERATURE, PENALTY, INSTRUCTION_EXTRACTION_PROMPT)
             token_usage["prompt_tokens"] += comparison_token_usage["prompt_tokens"]
             token_usage["completion_tokens"] += comparison_token_usage["completion_tokens"]
 
             # Compare instructions
             are_instructions_equivalent, comparison_token_usage = compare_instructions(
-                initial_instructions, new_instructions
+                initial_instructions, new_instructions, MODEL, MAX_TOKENS, TEMPERATURE, PENALTY, INSTRUCTION_COMPARISON_PROMPT
             )
             token_usage["prompt_tokens"] += comparison_token_usage["prompt_tokens"]
             token_usage["completion_tokens"] += comparison_token_usage["completion_tokens"]

@@ -9,6 +9,7 @@ This repository contains a Python implementation of a brute force method to opti
 [Requirements](#requirements)  
 [Installation](#installation)  
 [Usage](#usage)  
+[Custom Parameters](#custom-parameters)
 [Contributing](#contributing)  
 [Included Datasets](#included-datasets)  
 [Usage in the Small Texts Editor](#usage-in-the-small-texts-editor)  
@@ -106,6 +107,29 @@ python main.py  /path/to/your/dataset.json
 ```
 
 Alternatively, you can run the main script without any arguments, and it will prompt you to use the provided example dataset.
+
+## <a  id="custom-parameters"></a>Custom Parameters
+
+In the `main.py` file, you can configure the following parameters:
+
+```python
+# Custom parameters
+MODEL = "text-davinci-002"
+MAX_TOKENS = 150
+TEMPERATURE = 0.0
+PENALTY = 0.0
+INSTRUCTION_EXTRACTION_PROMPT = "Given the following input/output pairs, determine the transformation rule that turns the input into the output. Provide the result in plain text and be concise: "
+INSTRUCTION_COMPARISON_PROMPT = "Compare these two sets of instructions and indicate if both determine the same transformation. Provide the result as 'Yes' or 'No', without any additional explanation: "
+```
+
+These parameters allow you to customize the behavior of the script. You can modify the parameters according to your needs and requirements.
+
+- MODEL - The ChatGPT model to use for instruction induction.
+- MAX_TOKENS - The maximum number of tokens for the generated response.
+- TEMPERATURE - The temperature to control the randomness of the generated response.
+- PENALTY - The penalty applied to encourage brevity in the generated response.
+- INSTRUCTION_EXTRACTION_PROMPT - The prompt used for deducing the transformation.
+- INSTRUCTION_COMPARISON_PROMPT - The prompt used for comparing instructions.
 
 ## <a  id="contributing"></a>Contributing
 
