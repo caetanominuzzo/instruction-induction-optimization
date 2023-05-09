@@ -78,7 +78,7 @@ It's hard to get this working with markdown, as any code block won't be properly
 
 ## Conclusion
 
-<img width="600px" alt="Screenshoot of a file showing its changes ready to be commited" src="https://github.com/caetanominuzzo/lt2/assets/1922654/299985d8-5d06-4548-b296-d9660f7b8008"><br>
+<img width="600px" alt="Screenshoot of a file showing its changes ready to be commited" src="https://github.com/caetanominuzzo/instruction-induction-optimization/assets/1922654/93fd3837-9cd1-4e1c-8d97-e1bb6a03930f"><br>
 Well, at least I wrote the commit message...
 <br><br>
 
