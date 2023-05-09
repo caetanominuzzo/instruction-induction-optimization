@@ -2,6 +2,8 @@
 
 This repository contains a Python implementation of a brute force method to optimize few-shot learning using instruction induction with ChatGPT.
 
+> I'm not gonna lie - 100% of the code and documentation in this repository were written by ChatGPT-4. Every minor change was made through AI prompting, copy & paste. In this post, I'll walk you through the process. [Continue reading](coding-with-chatgpt.md)
+
 ## Index
 
 [Introduction](#introduction)  
@@ -147,14 +149,14 @@ Feel free to use these datasets for testing purposes or as a reference for creat
 
 ## <a  id="usage-in-the-small-texts-editor"></a>Usage in the Small Texts Editor
 
-This method has been successfully integrated into the Small Texts Editor, a state-of-the-art AI-driven text editor that focuses on generating short, contextually relevant text suggestions. The Small Texts Editor uses this method to optimize datasets for instruction induction, enabling personalized suggestions while keeping costs low.
+This method is an essential component of the Small Texts Editor, a state-of-the-art AI-driven text editor that focuses on generating short, contextually relevant text suggestions. The Small Texts Editor benefits from this method by optimizing datasets in its backend, allowing for personalized suggestions while keeping costs low.
 By leveraging this approach, the Small Texts Editor can deliver high-quality results for various use cases, including:
 
 - Writing precise storytelling prompts for AI image generators, including Stable Diffusion and Midjourney,
 - Crafting engaging Twitter posts,
 - Creating catchy slogans.
 
-For more information on the Small Texts Editor and to try it out, please visit the official website at labdqnt.com.
+For more information on the Small Texts Editor and to try it out, please visit the official website at [labdqnt.com](https://labdqnt.com/).
 
 This repository provides the underlying optimization method that powers the Small Texts Editor's dataset optimization feature.
 
